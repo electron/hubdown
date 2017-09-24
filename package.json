@@ -26,5 +26,8 @@
     "remark-html": "^6.0.1",
     "remark-inline-links": "^3.0.4",
     "remark-slug": "^4.2.3"
+  },
+  "engines": {
+    "node": ">=7"
   }
 }
