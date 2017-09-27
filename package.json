@@ -1,20 +1,22 @@
 {
   "name": "hubdown",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Convert markdown to GitHub-style HTML using a common set of remark plugins",
   "main": "index.js",
   "repository": "https://github.com/zeke/hubdown",
   "author": "zeke",
   "license": "MIT",
   "scripts": {
-    "test": "mocha && standard --fix && standard-markdown"
+    "test": "mocha && standard --fix && standard-markdown",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "cheerio": "^1.0.0-rc.2",
     "mocha": "^3.5.3",
     "standard": "^10.0.3",
-    "standard-markdown": "^4.0.2"
+    "standard-markdown": "^4.0.2",
+    "semantic-release": "^8.0.3"
   },
   "dependencies": {
     "gray-matter": "^3.0.7",
