@@ -14,7 +14,6 @@ The following [remark] plugins are used by hubdown:
 
 - [remark-slug](http://ghub.io/remark-slug) adds DOM ids to headings
 - [remark-autolink-headings](http://ghub.io/remark-autolink-headings) turns headings into links
-- [remark-github](http://ghub.io/remark-github) autolinks references to GitHub issues, PRs, and comments
 - [remark-inline-links](http://ghub.io/remark-inline-links) supports markdown reference links
 - [remark-highlight.js](http://ghub.io/remark-highlight.js) applies syntax highlighting to code blocks using highlight.js
 - [remark-html](http://ghub.io/remark-html) converts the parsed markdown tree to HTML
