@@ -12,10 +12,12 @@ const fixtures = {
 }
 
 describe('hubdown', () => {
-  let file, $
+  let file, file1, $
 
   before(async () => {
     file = await hubdown(fixtures.basic)
+    $ = cheerio.load(file.content)
+    file1 = await hubdown(fixtures.footnotes)
     $ = cheerio.load(file.content)
   })
 
@@ -33,8 +35,9 @@ describe('hubdown', () => {
   })
 
   it('handles footnotes in markdown links', () => {
-    fixtures.footnotes.should.include('[link](https://example.com)')
-    file.content.should.include('<a href="http://example.com">link</a>')
+    fixtures.footnotes.should.include('[link]')
+    console.log('**')
+    file1.content.should.include('<a href="http://example.com">link</a>')
   })
 
   describe('frontmatter', () => {

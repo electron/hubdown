@@ -26,6 +26,10 @@ module.exports = async function hubdown (markdownString, opts = {}) {
     const parsed = grayMatter(markdownString)
     data = parsed.data
     content = parsed.content
+  } else if (opts.footnotes) {
+    const parsed = inlineLinks(markdownString)
+    data = parsed.data
+    content = parsed.content
   }
 
   const md = await pify(renderer.process)(content)
