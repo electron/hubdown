@@ -36,7 +36,6 @@ describe('hubdown', () => {
 
   it('handles footnotes in markdown links', () => {
     fixtures.footnotes.should.include('[link]')
-    console.log('**')
     file1.content.should.include('<a href="http://example.com">link</a>')
   })
 
