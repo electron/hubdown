@@ -2,6 +2,9 @@
 
 > Convert markdown to GitHub-style HTML using a common set of [remark] plugins
 
+Used by [electron/i18n](https://github.com/electron/i18n)
+and [electronjs.org](https://github.com/electron/electronjs.org).
+
 [remark] is a performant markdown parser with a large plugin ecosystem.
 Unlike some other node markdown parsers that provide syntax highlighting 
 capabilities, remark does not have any native C++ dependencies. This makes 
