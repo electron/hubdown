@@ -43,6 +43,11 @@ describe('hubdown', () => {
       fixtures.footnotes.should.include('[link]')
       file.content.should.include('<a href="http://example.com">link</a>')
     })
+
+    it('handles full reference links', () => {
+      fixtures.footnotes.should.include('[full reference link][full]')
+      file.content.should.include('<a href="http://full.com">full reference link</a>')
+    })
   })
 
   describe('frontmatter', () => {
