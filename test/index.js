@@ -7,6 +7,7 @@ const hubdown = require('..')
 const cheerio = require('cheerio')
 const fixtures = {
   basic: fs.readFileSync(path.join(__dirname, 'fixtures/basic.md'), 'utf8'),
+  footnotes: fs.readFileSync(path.join(__dirname, 'fixtures/footnotes.md'), 'utf8'),
   frontmatter: fs.readFileSync(path.join(__dirname, 'fixtures/frontmatter.md'), 'utf8')
 }
 
@@ -29,6 +30,24 @@ describe('hubdown', () => {
   it('handles markdown links', () => {
     fixtures.basic.should.include('[link](https://link.com)')
     file.content.should.include('<a href="https://link.com">link</a>')
+  })
+
+  describe('footnotes', () => {
+    let file
+
+    before(async () => {
+      file = await hubdown(fixtures.footnotes)
+    })
+
+    it('handles footnotes in markdown links', async () => {
+      fixtures.footnotes.should.include('[link]')
+      file.content.should.include('<a href="http://example.com">link</a>')
+    })
+
+    it('handles full reference links', () => {
+      fixtures.footnotes.should.include('[full reference link][full]')
+      file.content.should.include('<a href="http://full.com">full reference link</a>')
+    })
   })
 
   describe('frontmatter', () => {
