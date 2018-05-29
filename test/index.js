@@ -7,6 +7,7 @@ const hubdown = require('..')
 const cheerio = require('cheerio')
 const fixtures = {
   basic: fs.readFileSync(path.join(__dirname, 'fixtures/basic.md'), 'utf8'),
+  emoji: fs.readFileSync(path.join(__dirname, 'fixtures/emoji.md'), 'utf8'),
   footnotes: fs.readFileSync(path.join(__dirname, 'fixtures/footnotes.md'), 'utf8'),
   frontmatter: fs.readFileSync(path.join(__dirname, 'fixtures/frontmatter.md'), 'utf8')
 }
@@ -30,6 +31,16 @@ describe('hubdown', () => {
   it('handles markdown links', () => {
     fixtures.basic.should.include('[link](https://link.com)')
     file.content.should.include('<a href="https://link.com">link</a>')
+  })
+
+  it('handles emoji shortcodes', async () => {
+    const file = await hubdown(fixtures.emoji)
+    fixtures.emoji.should.include(':tada:')
+    file.content.should.include('🎉')
+
+    // does not mess with existing emoji
+    fixtures.emoji.should.include('✨')
+    file.content.should.include('✨')
   })
 
   describe('footnotes', () => {
