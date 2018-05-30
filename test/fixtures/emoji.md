@@ -1,0 +1,3 @@
+## Emoji Fixture
+
+:tada: and ✨
