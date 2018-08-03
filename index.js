@@ -13,8 +13,7 @@ const renderer = remark()
   .use(autolinkHeadings, {behaviour: 'wrap'})
   .use(inlineLinks)
   .use(emoji)
-  .use(hljs)
-  .use(html, {sanitize: true})
+  .use([hljs, html], {sanitize: true})
 
 module.exports = async function hubdown (markdownString, opts = {}) {
   const defaults = {
