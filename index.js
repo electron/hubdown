@@ -8,6 +8,7 @@ const inlineLinks = require('remark-inline-links')
 const grayMatter = require('gray-matter')
 const pify = require('pify')
 const hasha = require('hasha')
+const sortObject = require('sort-object')
 
 const renderer = remark()
   .use(slug)
@@ -17,7 +18,8 @@ const renderer = remark()
   .use([hljs, html], {sanitize: false})
 
 module.exports = async function hubdown (markdownString, opts = {}) {
-  const hash = hasha(markdownString)
+  const hash = makeHash(markdownString, opts)
+
   const defaults = {
     frontmatter: false
   }
@@ -48,4 +50,21 @@ module.exports = async function hubdown (markdownString, opts = {}) {
   if (opts.cache) await opts.cache.put(hash, data)
 
   return data
+}
+
+// create a unique hash from the given input (markdown + options object)
+function makeHash (markdownString, opts) {
+  // copy existing opts object to avoid mutation
+  const hashableOpts = Object.assign({}, opts)
+
+  // ignore `cache` prop when creating hash
+  delete hashableOpts.cache
+
+  // object keys are sorted to ensure {a:1, b:2} has the same hash as {b:2, a:1}
+  // empty object should become an empty string, not {}
+  const optsString = Object.keys(hashableOpts).length
+    ? JSON.stringify(sortObject(hashableOpts))
+    : ''
+
+  return hasha(markdownString + optsString)
 }

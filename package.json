@@ -29,7 +29,8 @@
     "remark-highlight.js": "^5.0.0",
     "remark-html": "^6.0.1",
     "remark-inline-links": "^3.0.4",
-    "remark-slug": "^4.2.3"
+    "remark-slug": "^4.2.3",
+    "sort-object": "^3.0.2"
   },
   "engines": {
     "node": ">=7"
