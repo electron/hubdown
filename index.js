@@ -30,10 +30,12 @@ module.exports = async function hubdown (markdownString, opts = {}) {
 
   // check the cache for preprocessed markdown
   if (opts.cache) {
-    const existing = await opts.cache.get(hash).catch(err => {
-      console.debug(err)
-      return null
-    })
+    let existing = false
+    try {
+      existing = await opts.cache.get(hash)
+    } catch (err) {
+      if (!err.notFound) console.error(err)
+    }
     if (existing) return existing
   }
 
