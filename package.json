@@ -13,13 +13,15 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "cheerio": "^1.0.0-rc.2",
+    "level": "^4.0.0",
     "mocha": "^3.5.3",
+    "semantic-release": "^8.0.3",
     "standard": "^10.0.3",
-    "standard-markdown": "^4.0.2",
-    "semantic-release": "^8.0.3"
+    "standard-markdown": "^4.0.2"
   },
   "dependencies": {
     "gray-matter": "^3.0.7",
+    "hasha": "^3.0.0",
     "pify": "^3.0.0",
     "remark": "^8.0.0",
     "remark-autolink-headings": "^5.0.0",
