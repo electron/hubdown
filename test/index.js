@@ -81,7 +81,7 @@ describe('hubdown', () => {
   })
 
   describe('caching', () => {
-    const db = level('.', {valueEncoding: 'json'})
+    const db = level('./test/.cache', {valueEncoding: 'json'})
 
     it('accepts an optional leveldb instance as a cache', async () => {
       const hash = hasha(fixtures.basic)
