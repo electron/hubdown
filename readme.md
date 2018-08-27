@@ -48,6 +48,26 @@ containing the parsed HTML:
 }
 ```
 
+## Usage with Cache
+
+hubdown's `remark` markdown parser is pretty fast, but things can start to slow 
+down when you're processing hundreds or thousands of files. To make life easier 
+in these situations you can use hubdown's optional cache, which stores 
+preprocessed markdown for fast retrieval on subsequent runs.
+
+To use the cache, bring your own [level](https://ghub.io/level) instance and
+supply it as an option to hubdown. This helps keep hubdown lean on (native) 
+dependencies for users who don't need the cache.
+
+```js
+const hubdown = require('hubdown')
+const cache = require('level')('./my-hubdown-cache')
+
+hubdown('I will be cached.', {cache}).then(doc => {
+  console.log(doc)
+})
+```
+
 ## API
 
 ### `hubdown(markdownString[, options])`
@@ -58,6 +78,8 @@ Arguments:
 - `options` Object - (optional)
   - `frontmatter` Boolean - Whether or not to try to parse [YML frontmatter] in 
     the file. Defaults to `false`.
+  - `cache` [LevelDB](https://ghub.io/level) - An optional `level` instance in which
+  to store preprocessed content. See [Usage with Cache](#usage-with-cache).
 
 Returns a promise. The resolved object looks like this:
 
