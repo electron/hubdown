@@ -8,14 +8,14 @@
   "license": "MIT",
   "scripts": {
     "test": "mocha && standard --fix && standard-markdown",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "chai": "^4.1.2",
     "cheerio": "^1.0.0-rc.2",
     "level": "^4.0.0",
     "mocha": "^3.5.3",
-    "semantic-release": "^8.0.3",
+    "semantic-release": "^15.9.12",
     "standard": "^10.0.3",
     "standard-markdown": "^4.0.2"
   },
