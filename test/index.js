@@ -5,6 +5,8 @@ const path = require('path')
 const {before, describe, it} = require('mocha')
 const hubdown = require('..')
 const cheerio = require('cheerio')
+const level = require('level')
+const hasha = require('hasha')
 const fixtures = {
   basic: fs.readFileSync(path.join(__dirname, 'fixtures/basic.md'), 'utf8'),
   emoji: fs.readFileSync(path.join(__dirname, 'fixtures/emoji.md'), 'utf8'),
@@ -75,6 +77,30 @@ describe('hubdown', () => {
       file.title.should.equal('Project of the Week: WebTorrent')
       file.author.should.equal('zeke')
       file.date.should.equal('2017-03-14')
+    })
+  })
+
+  describe('caching', () => {
+    const db = level('./test/.cache', {valueEncoding: 'json'})
+
+    it('accepts an optional leveldb instance as a cache', async () => {
+      const hash = hasha(fixtures.basic)
+      await db.put(hash, {content: 'I came from the cache'})
+
+      const uncached = await hubdown(fixtures.basic)
+      uncached.content.should.include('<h2')
+
+      const cached = await hubdown(fixtures.basic, {cache: db})
+      cached.content.should.equal('I came from the cache')
+    })
+
+    it('saves to the cache', async () => {
+      const hash = hasha('Cache me please')
+      await db.del(hash)
+
+      await hubdown('Cache me please', {cache: db})
+      const cached = await db.get(hash)
+      cached.content.should.equal('<p>Cache me please</p>\n')
     })
   })
 })
