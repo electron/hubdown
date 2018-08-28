@@ -22,6 +22,7 @@
   "dependencies": {
     "gray-matter": "^3.0.7",
     "hasha": "^3.0.0",
+    "json-stable-stringify": "^1.0.1",
     "pify": "^3.0.0",
     "remark": "^8.0.0",
     "remark-autolink-headings": "^5.0.0",
@@ -29,8 +30,7 @@
     "remark-highlight.js": "^5.0.0",
     "remark-html": "^6.0.1",
     "remark-inline-links": "^3.0.4",
-    "remark-slug": "^4.2.3",
-    "sort-object": "^3.0.2"
+    "remark-slug": "^4.2.3"
   },
   "engines": {
     "node": ">=7"

@@ -8,7 +8,7 @@ const inlineLinks = require('remark-inline-links')
 const grayMatter = require('gray-matter')
 const pify = require('pify')
 const hasha = require('hasha')
-const sortObject = require('sort-object')
+const stableStringify = require('json-stable-stringify')
 
 const renderer = remark()
   .use(slug)
@@ -62,11 +62,10 @@ function makeHash (markdownString, opts) {
   // ignore `cache` prop when creating hash
   delete hashableOpts.cache
 
+  // deterministic stringifier gets a consistent hash from stringified results
   // object keys are sorted to ensure {a:1, b:2} has the same hash as {b:2, a:1}
   // empty object should become an empty string, not {}
-  const optsString = Object.keys(hashableOpts).length
-    ? JSON.stringify(sortObject(hashableOpts))
-    : ''
+  const optsString = Object.keys(hashableOpts).length ? stableStringify(hashableOpts) : ''
 
   return hasha(markdownString + optsString)
 }
