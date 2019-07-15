@@ -1,6 +1,6 @@
 const remark = require('remark')
 const slug = require('remark-slug')
-const hljs = require('remark-highlight.js')
+const highlight = require('remark-highlight.js')
 const html = require('remark-html')
 const emoji = require('remark-gemoji-to-emoji')
 const autolinkHeadings = require('remark-autolink-headings')
@@ -12,10 +12,11 @@ const stableStringify = require('json-stable-stringify')
 
 const renderer = remark()
   .use(slug)
-  .use(autolinkHeadings, {behaviour: 'wrap'})
+  .use(autolinkHeadings, { behavior: 'wrap' })
   .use(inlineLinks)
   .use(emoji)
-  .use([hljs, html], {sanitize: false})
+  .use(highlight)
+  .use(html, { sanitize: false })
 
 module.exports = async function hubdown (markdownString, opts = {}) {
   const hash = makeHash(markdownString, opts)
@@ -46,7 +47,7 @@ module.exports = async function hubdown (markdownString, opts = {}) {
   }
 
   const md = await pify(renderer.process)(content)
-  Object.assign(data, {content: md.contents})
+  Object.assign(data, { content: md.contents })
 
   // save processed markdown in cache
   if (opts.cache) await opts.cache.put(hash, data)
