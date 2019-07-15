@@ -76,6 +76,7 @@ Arguments:
 
 - `markdownString` String - (required)
 - `options` Object - (optional)
+  - `runBefore` Array of [remark] plugins - Custom plugins to be run before the commonly used plugins listed [above](#plugins).
   - `frontmatter` Boolean - Whether or not to try to parse [YML frontmatter] in 
     the file. Defaults to `false`.
   - `cache` [LevelDB](https://ghub.io/level) - An optional `level` instance in which

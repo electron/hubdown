@@ -10,18 +10,11 @@ const pify = require('pify')
 const hasha = require('hasha')
 const stableStringify = require('json-stable-stringify')
 
-const renderer = remark()
-  .use(slug)
-  .use(autolinkHeadings, { behavior: 'wrap' })
-  .use(inlineLinks)
-  .use(emoji)
-  .use(highlight)
-  .use(html, { sanitize: false })
-
 module.exports = async function hubdown (markdownString, opts = {}) {
   const hash = makeHash(markdownString, opts)
 
   const defaults = {
+    runBefore: [],
     frontmatter: false
   }
   opts = Object.assign(defaults, opts)
@@ -45,6 +38,15 @@ module.exports = async function hubdown (markdownString, opts = {}) {
     data = parsed.data
     content = parsed.content
   }
+
+  const renderer = remark()
+    .use(opts.runBefore)
+    .use(slug)
+    .use(autolinkHeadings, { behavior: 'wrap' })
+    .use(inlineLinks)
+    .use(emoji)
+    .use(highlight)
+    .use(html, { sanitize: false })
 
   const md = await pify(renderer.process)(content)
   Object.assign(data, { content: md.contents })
