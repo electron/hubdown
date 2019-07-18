@@ -63,6 +63,18 @@ describe('hubdown', () => {
     })
   })
 
+  describe('runBefore', () => {
+    it('runs custom plugins', async () => {
+      let pluginDidRun = false
+      const plugin = () => (tree) => {
+        pluginDidRun = true
+        return tree
+      }
+      await hubdown(fixtures.basic, { runBefore: [plugin] })
+      pluginDidRun.should.equal(true)
+    })
+  })
+
   describe('frontmatter', () => {
     it('does not parse frontmatter by default', async () => {
       const file = await hubdown(fixtures.frontmatter)
