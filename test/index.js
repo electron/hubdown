@@ -2,7 +2,7 @@ require('chai').should()
 
 const fs = require('fs')
 const path = require('path')
-const {before, describe, it} = require('mocha')
+const { before, describe, it } = require('mocha')
 const hubdown = require('..')
 const cheerio = require('cheerio')
 const level = require('level')
@@ -71,7 +71,7 @@ describe('hubdown', () => {
     })
 
     it('parses YML frontmatter if the frontmatter option is true', async () => {
-      const file = await hubdown(fixtures.frontmatter, {frontmatter: true})
+      const file = await hubdown(fixtures.frontmatter, { frontmatter: true })
       Object.keys(file).should.include('content')
       Object.keys(file).should.include('title')
       file.title.should.equal('Project of the Week: WebTorrent')
@@ -81,16 +81,16 @@ describe('hubdown', () => {
   })
 
   describe('caching', () => {
-    const db = level('./test/.cache', {valueEncoding: 'json'})
+    const db = level('./test/.cache', { valueEncoding: 'json' })
 
     it('accepts an optional leveldb instance as a cache', async () => {
       const hash = hasha(fixtures.basic)
-      await db.put(hash, {content: 'I came from the cache'})
+      await db.put(hash, { content: 'I came from the cache' })
 
       const uncached = await hubdown(fixtures.basic)
       uncached.content.should.include('<h2')
 
-      const cached = await hubdown(fixtures.basic, {cache: db})
+      const cached = await hubdown(fixtures.basic, { cache: db })
       cached.content.should.equal('I came from the cache')
     })
 
@@ -98,7 +98,7 @@ describe('hubdown', () => {
       const hash = hasha('Cache me please')
       await db.del(hash)
 
-      await hubdown('Cache me please', {cache: db})
+      await hubdown('Cache me please', { cache: db })
       const cached = await db.get(hash)
       cached.content.should.equal('<p>Cache me please</p>\n')
     })

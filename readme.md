@@ -63,7 +63,7 @@ dependencies for users who don't need the cache.
 const hubdown = require('hubdown')
 const cache = require('level')('./my-hubdown-cache')
 
-hubdown('I will be cached.', {cache}).then(doc => {
+hubdown('I will be cached.', { cache }).then(doc => {
   console.log(doc)
 })
 ```
