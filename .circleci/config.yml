@@ -1,6 +1,6 @@
 version: 2
 jobs:
-    build:
+    test:
         docker:
             - image: circleci/node:8
         steps:
@@ -13,4 +13,25 @@ jobs:
                 paths:
                     - ./node_modules
             - run: npm test
-            - run: npm run semantic-release
+    release:
+        docker:
+            - image: circleci/node:10
+        steps:
+            - checkout
+            - restore_cache:
+                key: dependency-cache-{{ checksum "package.json" }}
+            - run: npm install
+            - run: npx semantic-release
+workflows:
+    version: 2
+    test_and_release:
+        # release when tests are successful
+        jobs:
+            - test
+            - release:
+                requires:
+                    - test
+                filters:
+                    branches:
+                        only:
+                            - master
