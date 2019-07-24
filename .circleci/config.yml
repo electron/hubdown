@@ -20,7 +20,7 @@ jobs:
             - checkout
             - restore_cache:
                 key: dependency-cache-{{ checksum "yarn.lock" }}
-            - run: npm install
+            - run: yarn --frozen-lockfile
             - run: npx semantic-release
 workflows:
     version: 2
