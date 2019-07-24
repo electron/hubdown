@@ -19,9 +19,9 @@
     js-tokens "^4.0.0"
 
 "@continuous-auth/client@^1.1.0":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@continuous-auth/client/-/client-1.1.1.tgz#d809697aabe3a9bc282dc517cbc8cc3e1a9873a8"
-  integrity sha512-0iYHoFU3BfdKtUHBUH9MyjT9XUO6PDk+AoZ612RBypDhrbVDQgN+yyMWSEVr5nFy/oGJekda+talu0/4BcYtfQ==
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@continuous-auth/client/-/client-1.1.2.tgz#48432c75a731d1f6ad767e7a0a083de1764c57e9"
+  integrity sha512-WKHIeUFKrHjrvOQFMwMEkvVnHcUkkvXdOQU92bql9+PpjT6MXpJqWdr1TWpRx5iPUGTFj+tKUafeI1Ta8DbXYg==
   dependencies:
     axios "^0.18.0"
 
