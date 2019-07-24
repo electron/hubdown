@@ -6,10 +6,10 @@ jobs:
         steps:
             - checkout
             - restore_cache:
-                key: dependency-cache-{{ checksum "package.json" }}
-            - run: npm install
+                key: dependency-cache-{{ checksum "yarn.lock" }}
+            - run: yarn --frozen-lockfile
             - save_cache:
-                key: dependency-cache-{{ checksum "package.json" }}
+                key: dependency-cache-{{ checksum "yarn.lock" }}
                 paths:
                     - ./node_modules
             - run: npm test
@@ -19,7 +19,7 @@ jobs:
         steps:
             - checkout
             - restore_cache:
-                key: dependency-cache-{{ checksum "package.json" }}
+                key: dependency-cache-{{ checksum "yarn.lock" }}
             - run: npm install
             - run: npx semantic-release
 workflows:
