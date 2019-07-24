@@ -11,6 +11,7 @@
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
+    "@continuous-auth/semantic-release-npm": "^1.0.3",
     "chai": "^4.2.0",
     "cheerio": "^1.0.0-rc.3",
     "level": "^5.0.1",

@@ -1,0 +1,37 @@
+version: 2
+jobs:
+    test:
+        docker:
+            - image: circleci/node:8
+        steps:
+            - checkout
+            - restore_cache:
+                key: dependency-cache-{{ checksum "package.json" }}
+            - run: npm install
+            - save_cache:
+                key: dependency-cache-{{ checksum "package.json" }}
+                paths:
+                    - ./node_modules
+            - run: npm test
+    release:
+        docker:
+            - image: circleci/node:10
+        steps:
+            - checkout
+            - restore_cache:
+                key: dependency-cache-{{ checksum "package.json" }}
+            - run: npm install
+            - run: npx semantic-release
+workflows:
+    version: 2
+    test_and_release:
+        # release when tests are successful
+        jobs:
+            - test
+            - release:
+                requires:
+                    - test
+                filters:
+                    branches:
+                        only:
+                            - master

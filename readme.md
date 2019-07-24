@@ -1,4 +1,6 @@
-# hubdown 
+# hubdown
+
+[![CircleCI build status](https://circleci.com/gh/electron/hubdown/tree/master.svg?style=svg)](https://circleci.com/gh/electron/hubdown/tree/master)
 
 > Convert markdown to GitHub-style HTML using a common set of [remark] plugins
 
