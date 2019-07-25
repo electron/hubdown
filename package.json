@@ -3,6 +3,7 @@
   "version": "0.0.0-development",
   "description": "Convert markdown to GitHub-style HTML using a common set of remark plugins",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": "https://github.com/electron/hubdown",
   "author": "zeke",
   "license": "MIT",
