@@ -9,7 +9,6 @@ const highlight = require('rehype-highlight')
 const html = require('rehype-stringify')
 
 const grayMatter = require('gray-matter')
-const pify = require('pify')
 const hasha = require('hasha')
 const stableStringify = require('json-stable-stringify')
 
@@ -53,7 +52,7 @@ module.exports = async function hubdown (markdownString, opts = {}) {
     .use(highlight)
     .use(html)
 
-  const md = await pify(renderer.process)(content)
+  const md = await renderer.process(content)
   Object.assign(data, { content: md.contents })
 
   // save processed markdown in cache
