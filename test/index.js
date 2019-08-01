@@ -112,7 +112,7 @@ describe('hubdown', () => {
 
       await hubdown('Cache me please', { cache: db })
       const cached = await db.get(hash)
-      cached.content.should.equal('<p>Cache me please</p>\n')
+      cached.content.should.equal('<p>Cache me please</p>')
     })
   })
 })

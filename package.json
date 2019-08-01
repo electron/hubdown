@@ -26,13 +26,15 @@
     "hasha": "^3.0.0",
     "json-stable-stringify": "^1.0.1",
     "pify": "^3.0.0",
-    "remark": "^11.0.0",
-    "remark-autolink-headings": "^5.0.0",
+    "rehype-autolink-headings": "^2.0.5",
+    "rehype-highlight": "^3.0.0",
+    "rehype-slug": "^2.0.3",
+    "rehype-stringify": "^6.0.0",
     "remark-gemoji-to-emoji": "^1.1.0",
-    "remark-highlight.js": "^5.0.0",
-    "remark-html": "^10.0.0",
     "remark-inline-links": "^3.0.4",
-    "remark-slug": "^5.0.0"
+    "remark-parse": "^7.0.0",
+    "remark-rehype": "^5.0.0",
+    "unified": "^8.3.2"
   },
   "engines": {
     "node": ">=8"
