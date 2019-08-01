@@ -1,8 +1,8 @@
 declare namespace hubdown {
   interface Options {
-    readonly runBefore: Array<any>;
-    readonly frontmatter: boolean;
-    readonly cache: any;
+    readonly runBefore?: Array<any>;
+    readonly frontmatter?: boolean;
+    readonly cache?: any;
   }
 }
 
