@@ -12,6 +12,9 @@ const grayMatter = require('gray-matter')
 const hasha = require('hasha')
 const stableStringify = require('json-stable-stringify')
 
+// Create processor once, if possible.
+const defaultProcessor = createProcessor()
+
 module.exports = async function hubdown (markdownString, opts = {}) {
   const hash = makeHash(markdownString, opts)
 
@@ -41,18 +44,11 @@ module.exports = async function hubdown (markdownString, opts = {}) {
     content = parsed.content
   }
 
-  const renderer = unified()
-    .use(markdown)
-    .use(opts.runBefore)
-    .use(emoji)
-    .use(inlineLinks)
-    .use(remark2rehype)
-    .use(slug)
-    .use(autolinkHeadings, { behavior: 'wrap' })
-    .use(highlight)
-    .use(html)
+  const processor = opts.runBefore.length === 0
+    ? defaultProcessor
+    : createProcessor(opts.runBefore)
 
-  const file = await renderer.process(content)
+  const file = await processor.process(content)
   Object.assign(data, { content: String(file) })
 
   // save processed markdown in cache
@@ -75,4 +71,17 @@ function makeHash (markdownString, opts) {
   const optsString = Object.keys(hashableOpts).length ? stableStringify(hashableOpts) : ''
 
   return hasha(markdownString + optsString)
+}
+
+function createProcessor (before) {
+  return unified()
+    .use(markdown)
+    .use(before)
+    .use(emoji)
+    .use(inlineLinks)
+    .use(remark2rehype)
+    .use(slug)
+    .use(autolinkHeadings, { behavior: 'wrap' })
+    .use(highlight)
+    .use(html)
 }
