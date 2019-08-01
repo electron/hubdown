@@ -21,7 +21,6 @@ The following [remark] and [rehype] plugins are used by hubdown:
 
 - [remark-parse](http://ghub.io/remark-parse) parses markdown
 - [remark-gemoji-to-emoji](http://ghub.io/remark-gemoji-to-emoji) transforms gemoji shortcodes to emoji
-- [remark-inline-links](http://ghub.io/remark-inline-links) supports markdown reference links
 - [remark-rehype](http://ghub.io/remark-rehype) transforms markdown to HTML
 - [rehype-slug](http://ghub.io/rehype-slug) adds DOM ids to headings
 - [rehype-autolink-headings](http://ghub.io/rehype-autolink-headings) turns headings into links
