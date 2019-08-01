@@ -52,8 +52,8 @@ module.exports = async function hubdown (markdownString, opts = {}) {
     .use(highlight)
     .use(html)
 
-  const md = await renderer.process(content)
-  Object.assign(data, { content: md.contents })
+  const file = await renderer.process(content)
+  Object.assign(data, { content: String(file) })
 
   // save processed markdown in cache
   if (opts.cache) await opts.cache.put(hash, data)
