@@ -2,26 +2,30 @@
 
 [![CircleCI build status](https://circleci.com/gh/electron/hubdown/tree/master.svg?style=svg)](https://circleci.com/gh/electron/hubdown/tree/master)
 
-> Convert markdown to GitHub-style HTML using a common set of [remark] plugins
+> Convert markdown to GitHub-style HTML using a common set of [remark] and [rehype] plugins
 
 Used by [electron/i18n](https://github.com/electron/i18n)
 and [electronjs.org](https://github.com/electron/electronjs.org).
 
-[remark] is a performant markdown parser with a large plugin ecosystem.
-Unlike some other node markdown parsers that provide syntax highlighting 
-capabilities, remark does not have any native C++ dependencies. This makes 
+[unified] processes content with syntax trees and transforms between different formats.
+[remark] and [rehype] are its markdown and HTML ecosystems.
+We use this because its performant and has a large collection of plugins.
+Primarily, unlike some other node markdown parsers that provide syntax highlighting
+capabilities, unified does not have any native C++ dependencies. This makes
 it easier to install and reduces the likelihood of system-dependent installation
 failures.
 
 ## Plugins
 
-The following [remark] plugins are used by hubdown:
+The following [remark] and [rehype] plugins are used by hubdown:
 
-- [remark-slug](http://ghub.io/remark-slug) adds DOM ids to headings
-- [remark-autolink-headings](http://ghub.io/remark-autolink-headings) turns headings into links
-- [remark-inline-links](http://ghub.io/remark-inline-links) supports markdown reference links
-- [remark-highlight.js](http://ghub.io/remark-highlight.js) applies syntax highlighting to code blocks using highlight.js
-- [remark-html](http://ghub.io/remark-html) converts the parsed markdown tree to HTML
+- [remark-parse](http://ghub.io/remark-parse) parses markdown
+- [remark-gemoji-to-emoji](http://ghub.io/remark-gemoji-to-emoji) transforms gemoji shortcodes to emoji
+- [remark-rehype](http://ghub.io/remark-rehype) transforms markdown to HTML
+- [rehype-slug](http://ghub.io/rehype-slug) adds DOM ids to headings
+- [rehype-autolink-headings](http://ghub.io/rehype-autolink-headings) turns headings into links
+- [rehype-highlight.js](http://ghub.io/rehype-highlight) applies syntax highlighting to code blocks using highlight.js
+- [rehype-stringify](http://ghub.io/rehype-stringify) stringifies HTML
 
 ## Installation
 
@@ -52,13 +56,13 @@ containing the parsed HTML:
 
 ## Usage with Cache
 
-hubdown's `remark` markdown parser is pretty fast, but things can start to slow 
-down when you're processing hundreds or thousands of files. To make life easier 
-in these situations you can use hubdown's optional cache, which stores 
+hubdown's `remark` markdown parser is pretty fast, but things can start to slow
+down when you're processing hundreds or thousands of files. To make life easier
+in these situations you can use hubdown's optional cache, which stores
 preprocessed markdown for fast retrieval on subsequent runs.
 
 To use the cache, bring your own [level](https://ghub.io/level) instance and
-supply it as an option to hubdown. This helps keep hubdown lean on (native) 
+supply it as an option to hubdown. This helps keep hubdown lean on (native)
 dependencies for users who don't need the cache.
 
 ```js
@@ -79,7 +83,7 @@ Arguments:
 - `markdownString` String - (required)
 - `options` Object - (optional)
   - `runBefore` Array of [remark] plugins - Custom plugins to be run before the commonly used plugins listed [above](#plugins).
-  - `frontmatter` Boolean - Whether or not to try to parse [YML frontmatter] in 
+  - `frontmatter` Boolean - Whether or not to try to parse [YML frontmatter] in
     the file. Defaults to `false`.
   - `cache` [LevelDB](https://ghub.io/level) - An optional `level` instance in which
   to store preprocessed content. See [Usage with Cache](#usage-with-cache).
@@ -113,5 +117,7 @@ npm test
 
 MIT
 
+[unified]: http://ghub.io/unified
 [remark]: http://ghub.io/remark
+[rehype]: http://ghub.io/rehype
 [YML frontmatter]: https://jekyllrb.com/docs/frontmatter

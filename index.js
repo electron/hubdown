@@ -1,14 +1,18 @@
-const remark = require('remark')
-const slug = require('remark-slug')
-const highlight = require('remark-highlight.js')
-const html = require('remark-html')
+const unified = require('unified')
+const markdown = require('remark-parse')
 const emoji = require('remark-gemoji-to-emoji')
-const autolinkHeadings = require('remark-autolink-headings')
-const inlineLinks = require('remark-inline-links')
+const remark2rehype = require('remark-rehype')
+const slug = require('rehype-slug')
+const autolinkHeadings = require('rehype-autolink-headings')
+const highlight = require('rehype-highlight')
+const html = require('rehype-stringify')
+
 const grayMatter = require('gray-matter')
-const pify = require('pify')
 const hasha = require('hasha')
 const stableStringify = require('json-stable-stringify')
+
+// Create processor once, if possible.
+const defaultProcessor = createProcessor()
 
 module.exports = async function hubdown (markdownString, opts = {}) {
   const hash = makeHash(markdownString, opts)
@@ -39,17 +43,12 @@ module.exports = async function hubdown (markdownString, opts = {}) {
     content = parsed.content
   }
 
-  const renderer = remark()
-    .use(opts.runBefore)
-    .use(slug)
-    .use(autolinkHeadings, { behavior: 'wrap' })
-    .use(inlineLinks)
-    .use(emoji)
-    .use(highlight)
-    .use(html, { sanitize: false })
+  const processor = opts.runBefore.length === 0
+    ? defaultProcessor
+    : createProcessor(opts.runBefore)
 
-  const md = await pify(renderer.process)(content)
-  Object.assign(data, { content: md.contents })
+  const file = await processor.process(content)
+  Object.assign(data, { content: String(file) })
 
   // save processed markdown in cache
   if (opts.cache) await opts.cache.put(hash, data)
@@ -71,4 +70,16 @@ function makeHash (markdownString, opts) {
   const optsString = Object.keys(hashableOpts).length ? stableStringify(hashableOpts) : ''
 
   return hasha(markdownString + optsString)
+}
+
+function createProcessor (before) {
+  return unified()
+    .use(markdown)
+    .use(before)
+    .use(emoji)
+    .use(remark2rehype)
+    .use(slug)
+    .use(autolinkHeadings, { behavior: 'wrap' })
+    .use(highlight)
+    .use(html)
 }
