@@ -11,7 +11,8 @@ const fixtures = {
   basic: fs.readFileSync(path.join(__dirname, 'fixtures/basic.md'), 'utf8'),
   emoji: fs.readFileSync(path.join(__dirname, 'fixtures/emoji.md'), 'utf8'),
   footnotes: fs.readFileSync(path.join(__dirname, 'fixtures/footnotes.md'), 'utf8'),
-  frontmatter: fs.readFileSync(path.join(__dirname, 'fixtures/frontmatter.md'), 'utf8')
+  frontmatter: fs.readFileSync(path.join(__dirname, 'fixtures/frontmatter.md'), 'utf8'),
+  html: fs.readFileSync(path.join(__dirname, 'fixtures/html.md'), 'utf8')
 }
 
 describe('hubdown', () => {
@@ -43,6 +44,14 @@ describe('hubdown', () => {
     // does not mess with existing emoji
     fixtures.emoji.should.include('✨')
     file.content.should.include('✨')
+  })
+
+  it('preserves raw HTML from input string', async () => {
+    const file = await hubdown(fixtures.html)
+    fixtures.html.should.include('<div class="note">')
+    fixtures.html.should.include('*Markdown*')
+    file.content.should.include('<div class="note">')
+    file.content.should.include('<em>Markdown</em>')
   })
 
   describe('footnotes', () => {
