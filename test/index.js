@@ -12,6 +12,7 @@ const fixtures = {
   emoji: fs.readFileSync(path.join(__dirname, 'fixtures/emoji.md'), 'utf8'),
   footnotes: fs.readFileSync(path.join(__dirname, 'fixtures/footnotes.md'), 'utf8'),
   frontmatter: fs.readFileSync(path.join(__dirname, 'fixtures/frontmatter.md'), 'utf8'),
+  graphql: fs.readFileSync(path.join(__dirname, 'fixtures/graphql.md'), 'utf8'),
   html: fs.readFileSync(path.join(__dirname, 'fixtures/html.md'), 'utf8')
 }
 
@@ -34,6 +35,16 @@ describe('hubdown', () => {
   it('handles markdown links', () => {
     fixtures.basic.should.include('[link](https://link.com)')
     file.content.should.include('<a href="https://link.com">link</a>')
+  })
+
+  it('uses GraphQL syntax higlighting', async () => {
+    const file = await hubdown(fixtures.graphql)
+    $ = cheerio.load(file.content)
+    fixtures.graphql.should.include('```graphql')
+    $('pre > code.hljs.language-graphql').length.should.equal(1)
+    $('pre > code > span.hljs-keyword').length.should.equal(1)
+    $('span.hljs-string').first().text().should.equal('"octocat"')
+    $('span.hljs-number').first().text().should.equal('20')
   })
 
   it('handles emoji shortcodes', async () => {

@@ -24,6 +24,7 @@
   "dependencies": {
     "gray-matter": "^3.0.7",
     "hasha": "^3.0.0",
+    "highlightjs-graphql": "^1.0.1",
     "json-stable-stringify": "^1.0.1",
     "rehype-autolink-headings": "^2.0.5",
     "rehype-highlight": "^3.0.0",

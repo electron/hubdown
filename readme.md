@@ -24,7 +24,7 @@ The following [remark] and [rehype] plugins are used by hubdown:
 - [remark-rehype](http://ghub.io/remark-rehype) transforms markdown to HTML
 - [rehype-slug](http://ghub.io/rehype-slug) adds DOM ids to headings
 - [rehype-autolink-headings](http://ghub.io/rehype-autolink-headings) turns headings into links
-- [rehype-highlight.js](http://ghub.io/rehype-highlight) applies syntax highlighting to code blocks using highlight.js
+- [rehype-highlight.js](http://ghub.io/rehype-highlight) applies syntax highlighting to code blocks using highlight.js (supports the [default languages](https://github.com/highlightjs/highlight.js/blob/master/SUPPORTED_LANGUAGES.md) as well as [GraphQL](https://github.com/dpeek/highlightjs-graphql))
 - [rehype-stringify](http://ghub.io/rehype-stringify) stringifies HTML
 
 ## Installation

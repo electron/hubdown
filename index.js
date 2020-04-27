@@ -81,7 +81,7 @@ function createProcessor (before) {
     .use(remark2rehype, { allowDangerousHTML: true })
     .use(slug)
     .use(autolinkHeadings, { behavior: 'wrap' })
-    .use(highlight)
+    .use(highlight, { languages: { graphql: require('highlightjs-graphql').definer } })
     .use(raw)
     .use(html)
 }
