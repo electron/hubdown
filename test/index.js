@@ -70,7 +70,7 @@ describe('hubdown', () => {
 
   describe('ignoreMissing', () => {
     it('throw an error when unknown language is present', () => {
-      return hubdown(fixtures.unknownLanguage).should.to.be.rejectedWith(/Unknown language: `some-unknown-language`/)
+      return hubdown(fixtures.unknownLanguage).should.be.rejectedWith(/Unknown language: `some-unknown-language`/)
     })
 
     it('should work when ignoreMissing on the scene', async () => {
