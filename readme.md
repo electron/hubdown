@@ -86,7 +86,8 @@ Arguments:
   - `frontmatter` Boolean - Whether or not to try to parse [YML frontmatter] in
     the file. Defaults to `false`.
   - `cache` [LevelDB](https://ghub.io/level) - An optional `level` instance in which
-  to store preprocessed content. See [Usage with Cache](#usage-with-cache).
+    to store preprocessed content. See [Usage with Cache](#usage-with-cache).
+  - `highlight` - Object of [rehype-highlight](https://github.com/rehypejs/rehype-highlighthighlight#options) options.
 
 Returns a promise. The resolved object looks like this:
 
