@@ -70,14 +70,14 @@ describe('hubdown', () => {
 
   describe('ignoreMissing', () => {
     it('throw an error when unknown language is present', () => {
-      return hubdown(fixtures.unknownLanguage).should.to.be.rejectedWith(/Unknown language: `the-unknown-language-whats-actually-graphql`/)
+      return hubdown(fixtures.unknownLanguage).should.to.be.rejectedWith(/Unknown language: `some-unknown-language`/)
     })
 
     it('should work when ignoreMissing on the scene', async () => {
       const file = await hubdown(fixtures.unknownLanguage, { ignoreMissing: true })
       $ = cheerio.load(file.content)
-      fixtures.unknownLanguage.should.include('```the-unknown-language-whats-actually-graphql')
-      $('pre > code.hljs.language-the-unknown-language-whats-actually-graphql').length.should.equal(1)
+      fixtures.unknownLanguage.should.include('```some-unknown-language')
+      $('pre > code.hljs.language-some-unknown-language').length.should.equal(1)
     })
   })
 
