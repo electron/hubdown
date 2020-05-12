@@ -68,12 +68,12 @@ describe('hubdown', () => {
     file.content.should.include('<em>Markdown</em>')
   })
 
-  describe('ignoreMissing', () => {
-    it('throw an error when unknown language is present', () => {
+  describe('highlight.ignoreMissing option', () => {
+    it('throws an error when unknown language is present', () => {
       return hubdown(fixtures.unknownLanguage).should.be.rejectedWith(/Unknown language: `some-unknown-language`/)
     })
 
-    it('should work when ignoreMissing on the scene', async () => {
+    it('should work when the highlight.ignoreMissing option is true', async () => {
       const file = await hubdown(fixtures.unknownLanguage, { highlight: { ignoreMissing: true } })
       $ = cheerio.load(file.content)
       fixtures.unknownLanguage.should.include('```some-unknown-language')
