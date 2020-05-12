@@ -86,7 +86,9 @@ Arguments:
   - `frontmatter` Boolean - Whether or not to try to parse [YML frontmatter] in
     the file. Defaults to `false`.
   - `cache` [LevelDB](https://ghub.io/level) - An optional `level` instance in which
-  to store preprocessed content. See [Usage with Cache](#usage-with-cache).
+    to store preprocessed content. See [Usage with Cache](#usage-with-cache).
+  - `ignoreMissing` - Swallow errors for missing languages (`boolean`, default: `false`). By default, unregistered syntaxes
+    throw an error when they are used. Pass `true` to swallow those errors and thus ignore code with unknown code languages.
 
 Returns a promise. The resolved object looks like this:
 

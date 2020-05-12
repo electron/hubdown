@@ -1,5 +1,7 @@
-require('chai').should()
-
+const chai = require('chai')
+const chaiAsPromised = require('chai-as-promised')
+chai.use(chaiAsPromised)
+chai.should()
 const fs = require('fs')
 const path = require('path')
 const { before, describe, it } = require('mocha')
@@ -13,7 +15,8 @@ const fixtures = {
   footnotes: fs.readFileSync(path.join(__dirname, 'fixtures/footnotes.md'), 'utf8'),
   frontmatter: fs.readFileSync(path.join(__dirname, 'fixtures/frontmatter.md'), 'utf8'),
   graphql: fs.readFileSync(path.join(__dirname, 'fixtures/graphql.md'), 'utf8'),
-  html: fs.readFileSync(path.join(__dirname, 'fixtures/html.md'), 'utf8')
+  html: fs.readFileSync(path.join(__dirname, 'fixtures/html.md'), 'utf8'),
+  unknownLanguage: fs.readFileSync(path.join(__dirname, 'fixtures/unknown-language.md'), 'utf8')
 }
 
 describe('hubdown', () => {
@@ -63,6 +66,19 @@ describe('hubdown', () => {
     fixtures.html.should.include('*Markdown*')
     file.content.should.include('<div class="note">')
     file.content.should.include('<em>Markdown</em>')
+  })
+
+  describe('ignoreMissing', () => {
+    it('throw an error when unknown language is present', () => {
+      return hubdown(fixtures.unknownLanguage).should.to.be.rejectedWith(/Unknown language: `the-unknown-language-whats-actually-graphql`/)
+    })
+
+    it('should work when ignoreMissing on the scene', async () => {
+      const file = await hubdown(fixtures.unknownLanguage, { ignoreMissing: true })
+      $ = cheerio.load(file.content)
+      fixtures.unknownLanguage.should.include('```the-unknown-language-whats-actually-graphql')
+      $('pre > code.hljs.language-the-unknown-language-whats-actually-graphql').length.should.equal(1)
+    })
   })
 
   describe('footnotes', () => {

@@ -3,6 +3,7 @@ declare namespace hubdown {
     readonly runBefore?: Array<any>;
     readonly frontmatter?: boolean;
     readonly cache?: any;
+    readonly ignoreMissing?: boolean
   }
 }
 
