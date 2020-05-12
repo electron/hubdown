@@ -44,8 +44,8 @@ module.exports = async function hubdown (markdownString, opts = {}) {
     content = parsed.content
   }
 
-  const processor = opts.runBefore.length !== 0 || opts.ignoreMissing
-    ? createProcessor(opts.runBefore, opts.ignoreMissing)
+  const processor = opts.runBefore.length !== 0 || opts.highlight
+    ? createProcessor(opts.runBefore, opts.highlight)
     : defaultProcessor
 
   const file = await processor.process(content)
@@ -73,7 +73,7 @@ function makeHash (markdownString, opts) {
   return hasha(markdownString + optsString)
 }
 
-function createProcessor (before, ignoreMissing) {
+function createProcessor (before, highlightOpts) {
   return unified()
     .use(markdown)
     .use(before)
@@ -86,7 +86,7 @@ function createProcessor (before, ignoreMissing) {
         languages: {
           graphql: require('highlightjs-graphql').definer
         },
-        ignoreMissing: !!ignoreMissing
+        ...highlightOpts
       })
     .use(raw)
     .use(html)

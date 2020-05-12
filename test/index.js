@@ -74,7 +74,7 @@ describe('hubdown', () => {
     })
 
     it('should work when ignoreMissing on the scene', async () => {
-      const file = await hubdown(fixtures.unknownLanguage, { ignoreMissing: true })
+      const file = await hubdown(fixtures.unknownLanguage, { highlight: { ignoreMissing: true } })
       $ = cheerio.load(file.content)
       fixtures.unknownLanguage.should.include('```some-unknown-language')
       $('pre > code.hljs.language-some-unknown-language').length.should.equal(1)
