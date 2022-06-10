@@ -18,7 +18,7 @@
     "cheerio": "^1.0.0-rc.3",
     "level": "^5.0.1",
     "mocha": "^6.1.4",
-    "semantic-release": "^17.2.3",
+    "semantic-release": "^19.0.3",
     "standard": "^13.0.2",
     "standard-markdown": "^5.0.1"
   },
