@@ -9,7 +9,6 @@
   "license": "MIT",
   "scripts": {
     "test": "mocha && standard --fix && standard-markdown",
-    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@continuous-auth/semantic-release-npm": "^3.0.0",
